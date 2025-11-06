@@ -1,68 +1,48 @@
 package cinema
 
 fun main() {
-    println("Enter the number of rows:")
+    println("Enter the number of rows: ")
     val antallRader = readln().toInt()
-    println("Enter the number of seats in each row:")
+    println("Enter the number of seats in each row: ")
     val antallSeter = readln().toInt()
 
-    val totalInntekt = beregnInntekt(antallRader, antallSeter)
+    val sal = Sal(antallSeter, antallRader)
+    sal.printSal()
 
-//    println("""
-//        Total income:
-//        $$totalInntekt
-//    """.trimIndent())
+    println("Enter a row number: ")
+    val valgtRad = readln().toInt()
+    println("Enter a seat number in that row: ")
+    val valgtSete = readln().toInt()
 
-    // Gitt at antall rader er 7
-    // Lager vi 8 rader
 
-    // Gitt antall seter er 8
-    // lager vi 9 koloner
+    val billettPris = beregnPrisPåSete(antallRader, antallSeter, valgtRad)
+    println()
+    println("Ticket price: $$billettPris")
 
-    val sal = mutableListOf<List<String>>()
-    for (i in 0..antallRader) {
-        val seterPerRad = mutableListOf<String>()
-        for (j in 0..antallSeter) {
-            seterPerRad.add("$j")
-        }
-        sal.add(seterPerRad)
-    }
 
-    println(sal)
-
-//    println("""
-//        Cinema:
-//          1 2 3 4 5 6 7 8
-//        1 S S S S S S S S
-//        2 S S S S S S S S
-//        3 S S S S S S S S
-//        4 S S S S S S S S
-//        5 S S S S S S S S
-//        6 S S S S S S S S
-//        7 S S S S S S S S
-//    """.trimIndent())
+    sal.bestillSete(valgtRad, valgtSete)
+    sal.printSal()
 }
 
-fun beregnInntekt(antallRader: Int, antallSeter: Int): Int {
+fun beregnPrisPåSete(antallRader: Int, antallSeter: Int, valgtRad: Int): Int {
     val totaleSeter = antallRader * antallSeter
 
+    val billettpris: Int
+
     if (totaleSeter <= 60) {
-        return totaleSeter * 10
+        billettpris = 10
+        return billettpris
     } else {
-        val (raderForran, raderBak) = delSalITo(antallRader)
+        val raderForran = delSalITo(antallRader)
 
-        val seterForran = raderForran * antallSeter
-        val inntektForran = seterForran * 10
+        val erSeteForran = valgtRad <= raderForran
+        val billettPris = if (erSeteForran) 10 else 8
 
-        val seterBak = raderBak * antallSeter
-        val inntektBak = seterBak * 8
-
-        return inntektForran + inntektBak
+        return billettPris
     }
 }
 
-fun delSalITo(rader: Int): Pair<Int, Int> {
+fun delSalITo(rader: Int): Int {
     val raderForran = rader / 2
-    val raderBak = (rader + 1) / 2
-    return raderForran to raderBak
+    return raderForran
 }
