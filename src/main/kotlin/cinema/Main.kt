@@ -1,6 +1,35 @@
 package cinema
 
 fun main() {
+    println("Enter the number of rows:")
+    val antallRader = readln().toInt()
+    println("Enter the number of seats in each row:")
+    val antallSeter = readln().toInt()
+
+    val totalInntekt = beregnInntekt(antallRader, antallSeter)
+
+//    println("""
+//        Total income:
+//        $$totalInntekt
+//    """.trimIndent())
+
+    // Gitt at antall rader er 7
+    // Lager vi 8 rader
+
+    // Gitt antall seter er 8
+    // lager vi 9 koloner
+
+    val sal = mutableListOf<List<String>>()
+    for (i in 0..antallRader) {
+        val seterPerRad = mutableListOf<String>()
+        for (j in 0..antallSeter) {
+            seterPerRad.add("$j")
+        }
+        sal.add(seterPerRad)
+    }
+
+    println(sal)
+
 //    println("""
 //        Cinema:
 //          1 2 3 4 5 6 7 8
@@ -12,18 +41,6 @@ fun main() {
 //        6 S S S S S S S S
 //        7 S S S S S S S S
 //    """.trimIndent())
-
-    println("Enter the number of rows:")
-    val antallRader = readln().toInt()
-    println("Enter the number of seats in each row:")
-    val antallSeter = readln().toInt()
-
-    val totalInntekt = beregnInntekt(antallRader, antallSeter)
-
-    println("""
-        Total income:
-        $$totalInntekt
-    """.trimIndent())
 }
 
 fun beregnInntekt(antallRader: Int, antallSeter: Int): Int {
