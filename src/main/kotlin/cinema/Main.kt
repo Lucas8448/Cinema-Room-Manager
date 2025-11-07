@@ -1,5 +1,7 @@
 package cinema
 
+val ANTALL_SETER_I_LITEN_SAL = 60
+
 fun main() {
     println("Enter the number of rows: ")
     val antallRader = readln().toInt()
@@ -19,17 +21,17 @@ fun main() {
     println()
     println("Ticket price: $$billettPris")
 
-
     sal.bestillSete(valgtRad, valgtSete)
     sal.printSal()
 }
 
+// TODO: Bør flytte til en Sete klasse hvor man får beregnet pris på sete
 fun beregnPrisPåSete(antallRader: Int, antallSeter: Int, valgtRad: Int): Int {
     val totaleSeter = antallRader * antallSeter
 
     val billettpris: Int
 
-    if (totaleSeter <= 60) {
+    if (totaleSeter <= ANTALL_SETER_I_LITEN_SAL) {
         billettpris = 10
         return billettpris
     } else {
@@ -42,6 +44,7 @@ fun beregnPrisPåSete(antallRader: Int, antallSeter: Int, valgtRad: Int): Int {
     }
 }
 
+// TODO: Info om sete er forran eller ikke får man vite når man oppretter et sete i sal, så denne er ikke nødvendig
 fun delSalITo(rader: Int): Int {
     val raderForran = rader / 2
     return raderForran
